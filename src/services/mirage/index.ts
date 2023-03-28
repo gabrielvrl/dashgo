@@ -1,10 +1,11 @@
 import { createServer, Factory, Model } from 'miragejs';
 import faker from 'faker';
 
-type User = {
+export type User = {
   name: string;
   email: string;
-  created_at: string;
+  createdAt: string;
+  id: string;
 }
 
 export function makeServer(){
@@ -24,11 +25,14 @@ export function makeServer(){
         createdAt() {
           return faker.date.recent(10);
         },
+        id(i: number) {
+          return (i + 1).toString();
+        }
       })
     },
 
     seeds(server){
-      server.createList('user', 200);
+      server.createList('user', 10);
     },
 
     routes(){
